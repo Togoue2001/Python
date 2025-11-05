@@ -7,21 +7,21 @@ def test_ajouter_produit(monkeypatch):
     Teste la fonction ajouter_produit() avec des valeurs simulées.
     """
 
-    # vider la liste avant de commencer
     produits.clear()
 
-    # Simule les saisies de l'utilisateur
-    inputs = iter(["Pomme", "10", "500"])  # nom, quantité, prix
+    # Simule les saisies utilisateur (ajoute une 4ᵉ valeur pour la catégorie)
+    inputs = iter(["Pomme", "10", "500", "Fruits"])  # nom, quantité, prix, catégorie
 
     monkeypatch.setattr(builtins, "input", lambda _: next(inputs))
 
     ajouter_produit()
 
-    # Vérifie que le produit a bien été ajouté
     assert len(produits) == 1
     assert produits[0]["nom"].lower() == "pomme"
     assert produits[0]["quantite"] == 10
     assert produits[0]["prix"] == 500
+    assert produits[0]["categorie"].lower() == "fruits"
+
 
 
 # --- TEST AJOUT CLIENT ---
